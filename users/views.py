@@ -6,7 +6,7 @@ from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-
+from django.conf import settings
 
 def login_view(request):
 
@@ -54,7 +54,13 @@ def register_view(request):
         confirm_password = request.POST.get(
             "confirm_password"
         )
+        role = request.POST.get(
+            "role"
+        )
 
+        hr_code = request.POST.get(
+            "hr_code"
+        )
 
         # Kiểm tra password nhập lại
         if password != confirm_password:
@@ -104,20 +110,35 @@ def register_view(request):
                 "/users/register/"
             )
 
+        # Kiểm tra HR code
+        if role == "hr":
+        
+            if hr_code != settings.HR_REGISTER_CODE:
+            
+                messages.error(
+                    request,
+                    "Invalid HR code."
+                )
+
+                return redirect(
+                    "/users/register/"
+                )
+
 
         # Tạo user
         user = User.objects.create_user(
             username=username,
             password=password
         )
-
-
+        
+        user.userprofile.role = role
+        user.userprofile.save()
+        
         messages.success(
             request,
             "Register successfully."
         )
-
-
+        
         return redirect(
             "/users/login/"
         )

@@ -152,3 +152,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CSRF_TRUSTED_ORIGINS = [
     "https://*.onrender.com",
 ]
+
+
+HR_REGISTER_CODE = os.environ.get(
+    "HR_REGISTER_CODE",
+    "TAIKA-HR-2026"
+)
