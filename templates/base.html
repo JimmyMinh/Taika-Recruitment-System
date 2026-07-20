@@ -44,15 +44,58 @@
 
 {% endif %}
             {% if request.user.userprofile.role == 'hr' %}
-              <li class="nav-item"><a class="nav-link" href="/applications/hr-dashboard/">Dashboard</a></li>
-              <li class="nav-item"><a class="nav-link" href="/applications/manage-jobs/">Manage Jobs</a></li>
-              <li class="nav-item"><a class="nav-link" href="/jobs/closed/">Closed Jobs</a></li>
-              <li class="nav-item"><a class="nav-link" href="/jobs/create/">Create Job</a></li>
+<li class="nav-item">
+    <a 
+        class="nav-link {% if request.path == '/applications/hr-dashboard/' %}active{% endif %}" 
+        href="/applications/hr-dashboard/">
+        Dashboard
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a 
+        class="nav-link {% if request.path == '/applications/manage-jobs/' %}active{% endif %}" 
+        href="/applications/manage-jobs/">
+        Manage Jobs
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a 
+        class="nav-link {% if request.path == '/jobs/closed/' %}active{% endif %}" 
+        href="/jobs/closed/">
+        Closed Jobs
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a 
+        class="nav-link {% if request.path == '/jobs/create/' %}active{% endif %}" 
+        href="/jobs/create/">
+        Create Job
+    </a>
+</li>
             {% endif %}
-          {% else %}
-            <li class="nav-item"><a class="nav-link" href="/users/login/">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="/users/register/">Register</a></li>
-          {% endif %}
+{% else %}
+    <li class="nav-item">
+        <a 
+            class="nav-link {% if request.path == '/users/login/' %}active{% endif %}" 
+            href="/users/login/">
+            Login
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a 
+            class="nav-link {% if request.path == '/users/register/' %}active{% endif %}" 
+            href="/users/register/">
+            Register
+        </a>
+    </li>
+{% endif %}
         </ul>
         {% if request.user.is_authenticated %}
           <div class="dropdown">
