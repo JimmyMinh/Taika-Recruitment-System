@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="tk-hero mb-4">
+  <img class="tk-hero-bg" src="{% static 'images/file-13.jpg' %}" alt="Taika Seafood facility" />
+  <div class="tk-hero-body">
+    <span class="tk-badge tk-badge-red mb-3" style="background:rgba(255,255,255,.18);color:#fff;">We are finding members</span>
+    <h1 class="display-6 fw-bold mb-2">Taika Seafood's Jobs Recruitment System</h1>
+    <p class="fs-5 mb-4 opacity-75" style="max-width:560px;">Explore current openings across production, aquaculture, quality and export teams.</p>
+    <form method="get" class="tk-card tk-card-pad d-flex flex-wrap gap-2 align-items-end" style="max-width:820px;">
+      <div class="flex-grow-1" style="min-width:200px;">
+        <label class="form-label text-dark">Keyword</label>
+        <input type="text" class="form-control" name="keyword" placeholder="Job title, keyword..." value="{{ keyword }}" />
+      </div>
+      <div style="min-width:180px;">
+        <label class="form-label text-dark">Location</label>
+        <input type="text" class="form-control" name="location" placeholder="Location..." value="{{ location }}" />
+      </div>
+      <button class="btn btn-tk-red" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3"><div class="tk-card tk-card-pad tk-stat"><span class="tk-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><div><h3 data-count="24">24</h3><small>Open positions</small></div></div></div>
+  <div class="col-6 col-lg-3"><div class="tk-card tk-card-pad tk-stat"><span class="tk-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><h3 data-count="1500" data-suffix="+">1500+</h3><small>Team members</small></div></div></div>
+  <div class="col-6 col-lg-3"><div class="tk-card tk-card-pad tk-stat"><span class="tk-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></span><div><h3 data-count="50">50</h3><small>Export markets</small></div></div></div>
+  <div class="col-6 col-lg-3"><div class="tk-card tk-card-pad tk-stat"><span class="tk-stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></span><div><h3 data-count="6">6</h3><small>Departments</small></div></div></div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="mb-0">Latest openings</h4>
+  <div class="d-flex gap-2">
+    <span class="tk-chip">Full-time</span>
+    <span class="tk-chip">{{ keyword|default:'All locations' }}</span>
+    <span class="tk-chip">Newest</span>
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for job in jobs %}
+  <div class="col-md-6">
+    <div class="tk-card tk-card-pad tk-card-hover tk-job-card h-100">
+      <div class="d-flex gap-3">
+        <span class="tk-job-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg></span>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="mb-1"><a href="/applications/apply/{{ job.id }}/" class="text-decoration-none" style="color:var(--tk-blue-deep)">{{ job.title }}</a></h5>
+            <span class="tk-badge tk-badge-green tk-badge-dot">{{ job.status }}</span>
+          </div>
+          <div class="text-muted-2 mb-2 small">{{ job.description }}</div>
+          <div class="d-flex flex-wrap gap-3 mb-3">
+            <span class="tk-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>{{ job.location }}</span>
+            <span class="tk-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Full-time</span>
+            <span class="tk-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>{{ job.salary }}</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-muted-2 small">Posted {{ job.created_at|timesince }} ago</span>
+            <div class="d-flex gap-2">
+              {% if request.user.is_authenticated and request.user.userprofile.role == 'candidate' %}
+                <a href="/applications/apply/{{ job.id }}/" class="btn btn-tk-soft btn-sm">Apply</a>
+              {% endif %}
+              {% if request.user.is_authenticated and request.user.userprofile.role == 'hr' %}
+                <a href="/jobs/edit/{{ job.id }}/" class="btn btn-outline-secondary btn-sm">Edit</a>
+                {% if job.status == 'open' %}
+                  <a href="/jobs/close/{{ job.id }}/" class="btn btn-outline-danger btn-sm">Close</a>
+                {% else %}
+                  <a href="/jobs/open/{{ job.id }}/" class="btn btn-outline-success btn-sm">Open Again</a>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <div class="tk-card tk-card-pad text-center">No jobs found.</div>
+  </div>
+  {% endfor %}
+</div>
+
+<nav class="mt-4 d-flex justify-content-center">
+  <ul class="pagination">
+    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+  </ul>
+</nav>
+{% endblock %}

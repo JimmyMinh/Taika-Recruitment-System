@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="mb-1">
+            {{ job.title }}
+        </h2>
+
+        <p class="text-muted mb-0">
+            Total Applicants: {{ applications|length }}
+        </p>
+
+    </div>
+
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="row g-4">
+
+{% for app in applications %}
+
+<div class="col-lg-6">
+
+    <div class="tk-card tk-card-pad h-100">
+
+        <div class="d-flex justify-content-between align-items-start mb-3">
+
+            <div>
+
+                <h4 class="mb-1">
+                    {{ app.candidate.username }}
+                </h4>
+
+                <div class="text-muted">
+                    {{ app.job.title }}
+                </div>
+
+            </div>
+
+            {% if app.status == "pending" %}
+                <span class="tk-badge tk-badge-amber">Pending</span>
+
+            {% elif app.status == "reviewing" %}
+                <span class="tk-badge tk-badge-blue">Reviewing</span>
+
+            {% elif app.status == "interview" %}
+                <span class="tk-badge tk-badge-gray">Interview</span>
+
+            {% elif app.status == "accepted" %}
+                <span class="tk-badge tk-badge-green">Accepted</span>
+
+            {% elif app.status == "rejected" %}
+                <span class="tk-badge tk-badge-red">Rejected</span>
+
+            {% else %}
+                <span class="tk-badge tk-badge-gray">
+                    {{ app.status }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        <div class="mb-3">
+
+            <strong>CV:</strong>
+
+            {% if app.cv_file %}
+
+                <a
+                    href="{{ app.cv_file.url }}"
+                    target="_blank"
+                    class="btn btn-tk-outline btn-sm ms-2">
+                    View CV
+                </a>
+
+            {% else %}
+
+                <span class="text-muted">
+                    No CV uploaded
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        {% if app.status == "interview" %}
+
+        <div class="mb-3">
+
+            <a
+                href="/interviews/schedule/{{ app.id }}/"
+                class="btn btn-tk">
+                Schedule Interview
+            </a>
+
+        </div>
+
+        {% endif %}
+
+        <hr>
+
+        <div class="d-flex flex-wrap gap-2">
+
+            <a
+                href="/applications/update-status/{{ app.id }}/reviewing/"
+                class="btn btn-outline-primary btn-sm">
+                Reviewing
+            </a>
+
+            <a
+                href="/applications/update-status/{{ app.id }}/interview/"
+                class="btn btn-outline-secondary btn-sm">
+                Interview
+            </a>
+
+            <a
+                href="/applications/update-status/{{ app.id }}/accepted/"
+                class="btn btn-outline-success btn-sm">
+                Accept
+            </a>
+
+            <a
+                href="/applications/update-status/{{ app.id }}/rejected/"
+                class="btn btn-outline-danger btn-sm">
+                Reject
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="tk-card tk-card-pad text-center">
+
+        <h4>
+            No Applicants
+        </h4>
+
+        <p class="text-muted">
+            No one has applied for this job yet.
+        </p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

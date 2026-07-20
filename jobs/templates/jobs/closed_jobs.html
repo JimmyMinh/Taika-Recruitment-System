@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="mb-1">
+            Closed Jobs
+        </h2>
+
+        <p class="text-muted mb-0">
+            Manage closed recruitment positions.
+        </p>
+
+    </div>
+
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="row g-4">
+
+{% for job in jobs %}
+
+<div class="col-lg-6">
+
+    <div class="tk-card tk-card-pad h-100">
+
+        <div class="d-flex justify-content-between align-items-start mb-3">
+
+            <div>
+
+                <h4 class="mb-2">
+                    {{ job.title }}
+                </h4>
+
+                <div class="tk-meta">
+                    {{ job.location }}
+                </div>
+
+            </div>
+
+            <span class="tk-badge tk-badge-red">
+                Closed
+            </span>
+
+        </div>
+
+        <div class="mt-4 d-flex flex-wrap gap-2">
+
+            <a
+                href="/jobs/open/{{ job.id }}/"
+                class="btn btn-tk">
+
+                Open Again
+
+            </a>
+
+            <a
+                href="/jobs/delete/{{ job.id }}/"
+                class="btn btn-outline-danger"
+                onclick="return confirm('Delete this job permanently?');">
+
+                Delete Permanently
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="tk-card tk-card-pad text-center">
+
+        <h4>
+            No Closed Jobs
+        </h4>
+
+        <p class="text-muted">
+            There are currently no closed recruitment positions.
+        </p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

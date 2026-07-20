@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-7">
+
+        <div class="tk-card tk-card-pad">
+
+            <div class="text-center mb-4">
+
+                <h2>
+                    Apply for Job
+                </h2>
+
+                <p class="text-muted">
+                    Submit your CV for this position
+                </p>
+
+            </div>
+
+            <div class="alert alert-light border mb-4">
+
+                <h4 class="mb-2">
+                    {{ job.title }}
+                </h4>
+
+                <p class="mb-1">
+                    <strong>Location:</strong>
+                    {{ job.location }}
+                </p>
+
+                {% if job.salary %}
+                <p class="mb-0">
+                    <strong>Salary:</strong>
+                    {{ job.salary }}
+                </p>
+                {% endif %}
+
+            </div>
+
+            <form
+                method="post"
+                enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Upload your CV
+                    </label>
+
+                    <input
+                        type="file"
+                        name="cv_file"
+                        class="form-control"
+                        required>
+
+                    <div class="form-text">
+                        PDF or DOC/DOCX format is recommended.
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+
+                    <a
+                        href="/"
+                        class="btn btn-tk-outline">
+                        Back
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-tk-red">
+                        Submit Application
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

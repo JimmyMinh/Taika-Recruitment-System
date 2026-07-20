@@ -1,0 +1,40 @@
+<h1>My Interviews</h1>
+
+{% for interview in interviews %}
+
+<div
+style="
+border:1px solid black;
+margin:10px;
+padding:10px;
+"
+>
+
+    <h3>
+        {{ interview.application.job.title }}
+    </h3>
+
+    <p>
+        Time:
+        {{ interview.interview_time }}
+    </p>
+
+    <p>
+        Location:
+        {{ interview.location }}
+    </p>
+
+    <p>
+        Note:
+        {{ interview.note }}
+    </p>
+
+</div>
+
+{% empty %}
+
+<p>
+    No interviews scheduled.
+</p>
+
+{% endfor %}

@@ -1,0 +1,271 @@
+/* ==========================================================================
+   TAIKA SEAFOOD — Recruitment Management System
+   Shared Design System (Bootstrap 5 override + custom components)
+   ========================================================================== */
+
+:root {
+  /* Brand palette (inspired by Taika Seafood) */
+  --tk-blue:        #0b4da2;   /* primary corporate blue */
+  --tk-blue-dark:   #073a7d;
+  --tk-blue-deep:   #052c5f;
+  --tk-blue-soft:   #eaf1fb;   /* tinted surface */
+  --tk-red:         #e2231a;   /* accent */
+  --tk-red-dark:    #b81a13;
+
+  /* Neutrals */
+  --tk-ink:         #12233d;   /* body text */
+  --tk-muted:       #6b7a90;
+  --tk-line:        #e5ebf3;
+  --tk-bg:          #f4f7fb;   /* page background */
+  --tk-white:       #ffffff;
+
+  --tk-radius:      16px;
+  --tk-radius-sm:   10px;
+  --tk-radius-lg:   24px;
+  --tk-shadow:      0 8px 30px rgba(11, 77, 162, .08);
+  --tk-shadow-sm:   0 4px 16px rgba(11, 77, 162, .07);
+  --tk-shadow-lg:   0 18px 50px rgba(11, 77, 162, .14);
+
+  --tk-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--tk-font);
+  color: var(--tk-ink);
+  background-color: var(--tk-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; color: var(--tk-blue-deep); }
+
+a { text-decoration: none; }
+.text-muted-2 { color: var(--tk-muted) !important; }
+.text-brand { color: var(--tk-blue) !important; }
+.text-accent { color: var(--tk-red) !important; }
+
+/* ---------- Layout helpers ---------- */
+.tk-page   { min-height: 100vh; }
+.tk-shell  { display: flex; min-height: 100vh; }
+.tk-content{ flex: 1 1 auto; min-width: 0; }
+.tk-main   { padding: 32px clamp(16px, 3vw, 40px) 56px; }
+
+.section-title { font-size: 1.05rem; letter-spacing: .02em; text-transform: uppercase; color: var(--tk-muted); font-weight: 700; }
+
+/* ==========================================================================
+   TOP NAVBAR
+   ========================================================================== */
+.tk-navbar {
+  background: var(--tk-white);
+  border-bottom: 1px solid var(--tk-line);
+  box-shadow: 0 2px 14px rgba(11, 77, 162, .05);
+  position: sticky; top: 0; z-index: 1030;
+}
+.tk-navbar .navbar-brand img { height: 46px; }
+.tk-navbar .nav-link {
+  color: var(--tk-ink);
+  font-weight: 600;
+  padding: .5rem .9rem;
+  border-radius: 999px;
+  transition: all .18s ease;
+}
+.tk-navbar .nav-link:hover { color: var(--tk-blue); background: var(--tk-blue-soft); }
+.tk-navbar .nav-link.active { color: var(--tk-blue); background: var(--tk-blue-soft); }
+
+.tk-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--tk-blue); color: #fff; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.tk-avatar-lg { width: 96px; height: 96px; font-size: 2rem; }
+
+/* ==========================================================================
+   SIDEBAR (HR / candidate app shell)
+   ========================================================================== */
+.tk-sidebar {
+  width: 260px; flex: 0 0 260px;
+  background: linear-gradient(180deg, var(--tk-blue-deep), var(--tk-blue-dark));
+  color: #cfe0f7;
+  padding: 22px 16px;
+  position: sticky; top: 0; align-self: flex-start;
+  height: 100vh; overflow-y: auto;
+}
+.tk-sidebar .tk-brand-mini {
+  background: #fff; border-radius: var(--tk-radius-sm);
+  padding: 10px; margin-bottom: 22px; text-align: center;
+}
+.tk-sidebar .tk-brand-mini img { height: 40px; }
+.tk-sidebar .tk-navgroup-label {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+  color: #7ea6da; margin: 18px 8px 8px;
+}
+.tk-sidebar .tk-navitem {
+  display: flex; align-items: center; gap: 12px;
+  color: #cfe0f7; padding: 11px 14px; border-radius: 12px;
+  font-weight: 600; font-size: .95rem; margin-bottom: 4px;
+  transition: all .16s ease;
+}
+.tk-sidebar .tk-navitem:hover { background: rgba(255,255,255,.08); color: #fff; }
+.tk-sidebar .tk-navitem.active { background: var(--tk-red); color: #fff; box-shadow: 0 8px 20px rgba(226,35,26,.35); }
+.tk-sidebar .tk-navitem svg { width: 20px; height: 20px; flex: 0 0 20px; }
+
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+.tk-card {
+  background: var(--tk-white);
+  border: 1px solid var(--tk-line);
+  border-radius: var(--tk-radius);
+  box-shadow: var(--tk-shadow-sm);
+}
+.tk-card-pad { padding: clamp(18px, 2.2vw, 28px); }
+.tk-card-hover { transition: transform .18s ease, box-shadow .18s ease; }
+.tk-card-hover:hover { transform: translateY(-4px); box-shadow: var(--tk-shadow-lg); }
+
+/* Stat card */
+.tk-stat { display: flex; align-items: center; gap: 16px; }
+.tk-stat .tk-stat-ico {
+  width: 54px; height: 54px; border-radius: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--tk-blue-soft); color: var(--tk-blue);
+}
+.tk-stat .tk-stat-ico svg { width: 26px; height: 26px; }
+.tk-stat h3 { font-size: 1.9rem; margin: 0; line-height: 1; }
+.tk-stat small { color: var(--tk-muted); font-weight: 600; }
+
+/* Job card */
+.tk-job-card { border-left: 4px solid var(--tk-blue); }
+.tk-job-logo {
+  width: 52px; height: 52px; border-radius: 12px; flex: 0 0 52px;
+  background: var(--tk-blue-soft); color: var(--tk-blue);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.tk-job-logo svg { width: 26px; height: 26px; }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn { border-radius: 999px; font-weight: 600; padding: .55rem 1.3rem; }
+.btn-tk {
+  background: var(--tk-blue); border-color: var(--tk-blue); color: #fff;
+}
+.btn-tk:hover { background: var(--tk-blue-dark); border-color: var(--tk-blue-dark); color: #fff; }
+.btn-tk-red { background: var(--tk-red); border-color: var(--tk-red); color: #fff; }
+.btn-tk-red:hover { background: var(--tk-red-dark); border-color: var(--tk-red-dark); color: #fff; }
+.btn-tk-outline { background: transparent; border: 1.5px solid var(--tk-blue); color: var(--tk-blue); }
+.btn-tk-outline:hover { background: var(--tk-blue); color: #fff; }
+.btn-tk-soft { background: var(--tk-blue-soft); border-color: var(--tk-blue-soft); color: var(--tk-blue); }
+.btn-tk-soft:hover { background: #d9e6fa; color: var(--tk-blue-dark); }
+
+/* ==========================================================================
+   BADGES / PILLS
+   ========================================================================== */
+.tk-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .78rem; font-weight: 700; padding: .32rem .7rem; border-radius: 999px;
+}
+.tk-badge-blue   { background: var(--tk-blue-soft); color: var(--tk-blue-dark); }
+.tk-badge-green  { background: #e4f7ec; color: #157a41; }
+.tk-badge-amber  { background: #fef3d9; color: #a5720a; }
+.tk-badge-red    { background: #fde7e6; color: var(--tk-red-dark); }
+.tk-badge-gray   { background: #eef2f7; color: #566579; }
+.tk-badge-dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* ==========================================================================
+   BANNERS / HERO
+   ========================================================================== */
+.tk-hero {
+  position: relative; border-radius: var(--tk-radius-lg); overflow: hidden;
+  color: #fff; box-shadow: var(--tk-shadow);
+}
+.tk-hero img.tk-hero-bg {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+}
+.tk-hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(100deg, rgba(5,44,95,.92) 0%, rgba(11,77,162,.78) 45%, rgba(11,77,162,.30) 100%);
+}
+.tk-hero .tk-hero-body { position: relative; z-index: 2; padding: clamp(28px, 5vw, 56px); }
+.tk-hero h1 { color: #fff; }
+
+/* Auth split banner */
+.tk-auth { min-height: 100vh; }
+.tk-auth-visual { position: relative; overflow: hidden; color: #fff; }
+.tk-auth-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.tk-auth-visual::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg, rgba(5,44,95,.90), rgba(11,77,162,.72));
+}
+.tk-auth-visual .tk-auth-visual-body { position: relative; z-index: 2; }
+
+/* ==========================================================================
+   FORMS
+   ========================================================================== */
+.form-label { font-weight: 600; color: var(--tk-ink); font-size: .9rem; }
+.form-control, .form-select {
+  border-radius: var(--tk-radius-sm); border: 1.5px solid var(--tk-line);
+  padding: .65rem .9rem; color: var(--tk-ink);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--tk-blue); box-shadow: 0 0 0 .2rem rgba(11,77,162,.12);
+}
+.input-group-text { background: var(--tk-blue-soft); border: 1.5px solid var(--tk-line); border-right: 0; color: var(--tk-blue); border-radius: var(--tk-radius-sm) 0 0 var(--tk-radius-sm); }
+
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
+.tk-table { --bs-table-bg: transparent; margin: 0; }
+.tk-table thead th {
+  font-size: .76rem; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--tk-muted); border-bottom: 1px solid var(--tk-line);
+  font-weight: 700; padding: 14px 16px; background: var(--tk-blue-soft);
+}
+.tk-table tbody td { padding: 14px 16px; vertical-align: middle; border-bottom: 1px solid var(--tk-line); }
+.tk-table tbody tr:hover { background: #fafcff; }
+
+/* ==========================================================================
+   TIMELINE (interviews / application steps)
+   ========================================================================== */
+.tk-steps { display: flex; gap: 0; }
+.tk-step { flex: 1; text-align: center; position: relative; }
+.tk-step .tk-step-dot {
+  width: 34px; height: 34px; border-radius: 50%; margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--tk-line); color: var(--tk-muted); font-weight: 700; z-index: 2; position: relative;
+}
+.tk-step.done .tk-step-dot   { background: #157a41; color: #fff; }
+.tk-step.active .tk-step-dot { background: var(--tk-blue); color: #fff; }
+.tk-step::before {
+  content: ""; position: absolute; top: 17px; left: -50%; width: 100%; height: 3px; background: var(--tk-line); z-index: 1;
+}
+.tk-step:first-child::before { display: none; }
+.tk-step.done::before, .tk-step.active::before { background: var(--tk-blue); }
+.tk-step small { font-weight: 600; color: var(--tk-ink); font-size: .82rem; }
+
+/* Vertical timeline */
+.tk-timeline { position: relative; padding-left: 34px; }
+.tk-timeline::before { content:""; position:absolute; left:11px; top:6px; bottom:6px; width:2px; background:var(--tk-line); }
+.tk-tl-item { position: relative; padding-bottom: 22px; }
+.tk-tl-item::before {
+  content:""; position:absolute; left:-28px; top:3px; width:16px; height:16px; border-radius:50%;
+  background:#fff; border:3px solid var(--tk-blue);
+}
+.tk-tl-item.muted::before { border-color: var(--tk-line); }
+
+/* ---------- Misc ---------- */
+.tk-divider { height: 1px; background: var(--tk-line); border: 0; }
+.tk-chip { background:#fff; border:1px solid var(--tk-line); border-radius:999px; padding:.4rem .9rem; font-weight:600; font-size:.85rem; color:var(--tk-ink); }
+.tk-meta { color: var(--tk-muted); font-size: .88rem; display:inline-flex; align-items:center; gap:6px; }
+.tk-meta svg { width:16px; height:16px; }
+
+.tk-footer { color: var(--tk-muted); font-size: .85rem; padding: 24px 0; }
+
+/* Progress */
+.progress { background: var(--tk-line); border-radius: 999px; height: 8px; }
+.progress-bar { background: var(--tk-blue); border-radius: 999px; }
+
+@media (max-width: 991.98px) {
+  .tk-sidebar { position: fixed; left: 0; top: 0; transform: translateX(-100%); transition: transform .25s ease; z-index: 1050; }
+  .tk-sidebar.show { transform: translateX(0); }
+}

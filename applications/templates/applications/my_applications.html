@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-1">My Applications</h2>
+        <p class="text-muted mb-0">
+            Track all positions you have applied for.
+        </p>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="row g-4">
+
+{% for app in applications %}
+
+<div class="col-lg-6">
+
+    <div class="tk-card tk-card-pad h-100">
+
+        <div class="d-flex justify-content-between align-items-start mb-3">
+
+            <div>
+                <h4 class="mb-1">
+                    {{ app.job.title }}
+                </h4>
+
+                <div class="text-muted">
+                    Applied {{ app.applied_at|date:"d/m/Y H:i" }}
+                </div>
+            </div>
+
+            {% if app.status == "pending" %}
+                <span class="tk-badge tk-badge-amber">
+                    Pending
+                </span>
+
+            {% elif app.status == "accepted" %}
+                <span class="tk-badge tk-badge-green">
+                    Accepted
+                </span>
+
+            {% elif app.status == "rejected" %}
+                <span class="tk-badge tk-badge-red">
+                    Rejected
+                </span>
+
+            {% else %}
+                <span class="tk-badge tk-badge-gray">
+                    {{ app.status }}
+                </span>
+            {% endif %}
+
+        </div>
+
+        <p class="mb-3">
+            <strong>Location:</strong>
+            {{ app.job.location }}
+        </p>
+
+        {% if app.cv_file %}
+
+        <a
+            href="{{ app.cv_file.url }}"
+            target="_blank"
+            class="btn btn-tk-outline btn-sm"
+        >
+            View CV
+        </a>
+
+        {% endif %}
+
+        <div class="mt-4 d-flex gap-2 flex-wrap">
+
+            <a
+                href="/applications/update-cv/{{ app.id }}/"
+                class="btn btn-tk"
+            >
+                Update CV
+            </a>
+
+            {% if app.status == "pending" %}
+
+            <a
+                href="/applications/cancel/{{ app.id }}/"
+                class="btn btn-danger"
+                onclick="return confirm('Cancel this application?')"
+            >
+                Cancel Application
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="tk-card tk-card-pad text-center">
+
+        <h4>No applications yet</h4>
+
+        <p class="text-muted">
+            You haven't applied for any jobs.
+        </p>
+
+        <a
+            href="/"
+            class="btn btn-tk"
+        >
+            Browse Jobs
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

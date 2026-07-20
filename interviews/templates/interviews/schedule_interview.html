@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="tk-card tk-card-pad">
+
+            <div class="mb-4">
+
+                <h2>Schedule Interview</h2>
+
+                <p class="text-muted">
+                    Create or update the interview schedule for the candidate.
+                </p>
+
+            </div>
+
+            <div class="tk-card tk-card-pad mb-4" style="background: var(--tk-blue-soft);">
+
+                <h4 class="mb-2">
+                    {{ application.candidate.username }}
+                </h4>
+
+                <div class="tk-meta">
+                    Position: {{ application.job.title }}
+                </div>
+
+            </div>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Interview Time
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        name="interview_time"
+                        class="form-control"
+                        value="{% if interview.interview_time %}{{ interview.interview_time|date:'Y-m-d\\TH:i' }}{% endif %}"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        name="location"
+                        class="form-control"
+                        value="{{ interview.location }}"
+                        required>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Interview Note
+                    </label>
+
+                    <textarea
+                        name="note"
+                        rows="5"
+                        class="form-control">{{ interview.note }}</textarea>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+
+                    <a
+                        href="javascript:history.back()"
+                        class="btn btn-tk-outline">
+
+                        Cancel
+
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-tk-red">
+
+                        Save Interview
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

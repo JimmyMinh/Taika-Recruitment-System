@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h2>HR Dashboard</h2>
+
+    <p class="text-muted">
+        Recruitment overview and application statistics
+    </p>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-6">
+
+        <div class="tk-card tk-card-pad">
+
+            <h4 class="mb-4">
+                Job Statistics
+            </h4>
+
+            <div class="row g-3">
+
+                <div class="col-12">
+
+                    <div class="tk-stat">
+
+                        <span class="tk-stat-ico">
+                            📋
+                        </span>
+
+                        <div>
+                            <h3>{{ total_jobs }}</h3>
+                            <small>Total Jobs</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-6">
+
+                    <div class="tk-card tk-card-pad text-center">
+
+                        <h2 class="text-success">
+                            {{ open_jobs }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Open Jobs
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-6">
+
+                    <div class="tk-card tk-card-pad text-center">
+
+                        <h2 class="text-danger">
+                            {{ closed_jobs }}
+                        </h2>
+
+                        <p class="mb-0">
+                            Closed Jobs
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="tk-card tk-card-pad">
+
+            <h4 class="mb-4">
+                Application Statistics
+            </h4>
+
+            <table class="table">
+
+                <tbody>
+
+                    <tr>
+                        <td>Total Applications</td>
+                        <td class="text-end fw-bold">{{ total_applications }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pending</td>
+                        <td class="text-end">
+                            <span class="tk-badge tk-badge-amber">
+                                {{ pending }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Reviewing</td>
+                        <td class="text-end">
+                            <span class="tk-badge tk-badge-blue">
+                                {{ reviewing }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Interview</td>
+                        <td class="text-end">
+                            <span class="tk-badge tk-badge-gray">
+                                {{ interview }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Accepted</td>
+                        <td class="text-end">
+                            <span class="tk-badge tk-badge-green">
+                                {{ accepted }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Rejected</td>
+                        <td class="text-end">
+                            <span class="tk-badge tk-badge-red">
+                                {{ rejected }}
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
