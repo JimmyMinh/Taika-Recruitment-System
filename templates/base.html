@@ -27,9 +27,22 @@
           </li>
           {% if request.user.is_authenticated %}
             {% if request.user.userprofile.role == 'candidate' %}
-              <li class="nav-item"><a class="nav-link" href="/applications/my-applications/">My Applications</a></li>
-              <li class="nav-item"><a class="nav-link" href="/interviews/my-interviews/">My Interviews</a></li>
-            {% endif %}
+
+  <li class="nav-item">
+    <a class="nav-link {% if '/applications/my-applications/' in request.path %}active{% endif %}" 
+       href="/applications/my-applications/">
+      My Applications
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link {% if '/interviews/my-interviews/' in request.path %}active{% endif %}" 
+       href="/interviews/my-interviews/">
+      My Interviews
+    </a>
+  </li>
+
+{% endif %}
             {% if request.user.userprofile.role == 'hr' %}
               <li class="nav-item"><a class="nav-link" href="/applications/hr-dashboard/">Dashboard</a></li>
               <li class="nav-item"><a class="nav-link" href="/applications/manage-jobs/">Manage Jobs</a></li>
