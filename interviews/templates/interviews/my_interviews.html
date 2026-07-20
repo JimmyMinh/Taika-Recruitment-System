@@ -1,40 +1,78 @@
-<h1>My Interviews</h1>
+{% extends "base.html" %}
 
-{% for interview in interviews %}
+{% block content %}
 
-<div
-style="
-border:1px solid black;
-margin:10px;
-padding:10px;
-"
->
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h3>
-        {{ interview.application.job.title }}
-    </h3>
+    <div>
+        <h2 class="mb-1">
+            My Interviews
+        </h2>
 
-    <p>
-        Time:
-        {{ interview.interview_time }}
-    </p>
-
-    <p>
-        Location:
-        {{ interview.location }}
-    </p>
-
-    <p>
-        Note:
-        {{ interview.note }}
-    </p>
+        <p class="text-muted mb-0">
+            View your upcoming interview schedules.
+        </p>
+    </div>
 
 </div>
 
+
+<div class="row g-4">
+
+{% for interview in interviews %}
+
+<div class="col-lg-6">
+
+    <div class="tk-card tk-card-pad h-100">
+
+        <h4 class="mb-3">
+            {{ interview.application.job.title }}
+        </h4>
+
+        <div class="tk-meta mb-2">
+            Time:
+            {{ interview.interview_time }}
+        </div>
+
+        <div class="tk-meta mb-2">
+            Location:
+            {{ interview.location }}
+        </div>
+
+        {% if interview.note %}
+        <div class="mt-3">
+            <strong>Note:</strong>
+            <p class="text-muted mb-0">
+                {{ interview.note }}
+            </p>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+
 {% empty %}
 
-<p>
-    No interviews scheduled.
-</p>
+<div class="col-12">
+
+    <div class="tk-card tk-card-pad text-center">
+
+        <h4>
+            No Interview Scheduled
+        </h4>
+
+        <p class="text-muted mb-0">
+            You do not have any upcoming interviews yet.
+        </p>
+
+    </div>
+
+</div>
 
 {% endfor %}
+
+</div>
+
+{% endblock %}
